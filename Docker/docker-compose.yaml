@@ -1,0 +1,38 @@
+version: '3.6'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    hostname: backend-host
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    networks:
+      - my_network
+    image: rkjoshi1206/docker-backend:latest
+          
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    hostname: frontend-host
+    volumes:
+        - ./frontend:/app
+    environment:
+      - BACKEND_URL=http://backend-host:8000/api
+    ports:
+      - "3000:3000"
+    links:
+      - backend
+    depends_on:
+      - backend
+    networks:
+      - my_network
+    image: rkjoshi1206/docker-frontend:latest    
+
+networks:
+    my_network: {}                
