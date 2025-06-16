@@ -1,4 +1,3 @@
-Docker/Dockerfile
 Docker/frontend/node_modules
 Docker/backend/__pycache__/
 Docker/frontend/package*
